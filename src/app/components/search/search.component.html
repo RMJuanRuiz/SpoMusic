@@ -4,6 +4,11 @@
     </div>
 </div>
 
+<div *ngIf="error" class="alert alert-danger animated fadeIn mt-3">
+    <h3>Error!</h3>
+    <p>{{ msgError }}</p>
+</div>
+
 <app-loading *ngIf="loading" class="mt-5"></app-loading>
 
 <app-card *ngIf="!loading" [items]="artists"></app-card>

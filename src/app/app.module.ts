@@ -10,13 +10,14 @@ import { SearchComponent } from './components/search/search.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { CardComponent } from './components/card/card.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
 
 // Import routes:
 import { ROUTES } from "./app.routes";
 
 // Pipes
 import { NoimagePipe } from './pipes/noimage.pipe';
-import { LoadingComponent } from './components/shared/loading/loading.component';
+import { DomseguroPipe } from "./pipes/domseguro.pipe";
 
 @NgModule({
   declarations: [
@@ -25,9 +26,10 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     SearchComponent,
     ArtistComponent,
     NavbarComponent,
-    NoimagePipe,
     CardComponent,
-    LoadingComponent
+    LoadingComponent,
+    NoimagePipe,
+    DomseguroPipe
   ],
   imports: [
     BrowserModule,
