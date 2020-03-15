@@ -22,16 +22,16 @@ export class ArtistComponent {
     });
   }
 
-  getArtist(id: string) {
-    this.spotify.getArtist(id)
+  async getArtist(id: string) {
+    (await this.spotify.getArtist(id))
       .subscribe( artist => {
         this.artist = artist;
         this.loading = false;
       });
   }
 
-  getTopTracks(id: string){
-    this.spotify.getArtistTopTracks(id)
+  async getTopTracks(id: string){
+    (await this.spotify.getArtistTopTracks(id))
       .subscribe( topTracks => {
         this.topTracks = topTracks;
         console.log(this.topTracks);

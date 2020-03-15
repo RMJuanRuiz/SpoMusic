@@ -15,12 +15,12 @@ export class SearchComponent{
 
   constructor(private spotify: SpotifyService) {}
 
-  searchArtist(search: string){
+  async searchArtist(search: string){
     this.loading = true;
     this.error = false;
 
     if(search.length > 0){
-      this.spotify.getArtists(search)
+      (await this.spotify.getArtists(search))
         .subscribe( (data: any) => {
           this.artists = data;
           this.loading = false;

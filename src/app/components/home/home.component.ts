@@ -8,7 +8,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   
   newSongs: any[] = [];
   loading: boolean;
@@ -16,11 +16,16 @@ export class HomeComponent {
   msgError: string;
 
   constructor( private spotify: SpotifyService){
-  
     this.loading = true;
     this.error = false;
+  }
+
+  ngOnInit(){
+    this.getNewReleases();
+  }
   
-    this.spotify.getNewReleases().subscribe( (data: any ) => {
+  async getNewReleases(){
+    (await this.spotify.getNewReleases()).subscribe( (data: any ) => {
       this.newSongs = data;
       this.loading = false;
     }, ( serviceError ) => {

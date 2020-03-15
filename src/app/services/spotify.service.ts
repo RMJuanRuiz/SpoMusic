@@ -11,32 +11,41 @@ export class SpotifyService {
   constructor(private http: HttpClient) {
   }
 
-  getNewReleases(){
-    return this.getQueryConsult('browse/new-releases?limit=20')
-      .pipe( map( data => data['albums'].items));
+  async getNewReleases(){
+    const obs = await this.getQueryConsult('browse/new-releases?limit=20');
+    return obs.pipe( map( data => data['albums'].items));
   }
 
-  getArtists(search: string){
-    return this.getQueryConsult(`search?q=${ search }&type=artist&limit=15`)
-      .pipe( map( data => data['artists'].items));
+  async getArtists(search: string){
+    const obs = await this.getQueryConsult(`search?q=${ search }&type=artist&limit=15`);    
+    return obs.pipe( map( data => data['artists'].items));
   }
 
-  getArtist(id: string){
-    return this.getQueryConsult(`artists/${ id }`);
+  async getArtist(id: string){
+    return await this.getQueryConsult(`artists/${ id }`);
   }
 
-  getArtistTopTracks(id: string){
-    return this.getQueryConsult(`artists/${ id }/top-tracks?country=us`)
-      .pipe( map( data => data['tracks'])); 
+  async getArtistTopTracks(id: string){
+    const obj = await this.getQueryConsult(`artists/${ id }/top-tracks?country=us`);
+    return obj.pipe( map( data => data['tracks']));
   }
 
-  getQueryConsult(query: string){
+  async getQueryConsult(query: string){
     const url = `https://api.spotify.com/v1/${query}`;
+    const token = await this.getAccessToken();
 
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer BQAHsJS4EnXeJcRtC9y6GrGTf40l9hGwFPzPo8c3LtdsAa3Ks6Sum2IcLlCxAkiOH1PeH3k209fvi8C1VYU'
+      'Authorization': `Bearer ${token}`
     });
 
     return this.http.get(url, {headers});
+  }
+
+  getAccessToken(){
+    const clientId = '6b3862f501dd416cbf6e31995e2b4ccf';
+    const clientSecret = 'd4ccfb7ff8664b708849710e77cfda34';
+    const url = `https://spomusic-backend.herokuapp.com/spotify/${clientId}/${clientSecret}`;
+
+    return this.http.get(url).toPromise().then((data: any) => data.access_token);
   }
 }
