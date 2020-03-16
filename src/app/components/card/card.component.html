@@ -2,19 +2,12 @@
     <div (click)="watchArtist (item)" *ngFor="let item of items" class="card puntero">
         <img [src]="item.images | noimage" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{ item.name }}</h5>
+            <h5 [className]="item.artists?.length > 0 ? 'card-title' : 'card-title text-center'">{{ item.name }}</h5>
 
             <!-- If it's home and comes artists data-->
             <div *ngIf="item.artists?.length > 0">
                 <p *ngFor="let artist of item.artists" class="card-text"> - {{ artist.name }}</p>
             </div>
-
-
-            <!-- If it's search page and comes genres data-->
-            <div *ngIf="item.genres?.length > 0">
-                <p *ngFor="let genre of item.genres" class="card-text"> - {{ genre }}</p>
-            </div>
-
 
         </div>
     </div>

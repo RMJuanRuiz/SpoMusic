@@ -34,7 +34,6 @@ export class ArtistComponent {
     (await this.spotify.getArtistTopTracks(id))
       .subscribe( topTracks => {
         this.topTracks = topTracks;
-        console.log(this.topTracks);
       })
   }
 

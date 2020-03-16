@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { map } from "rxjs/operators";
 
@@ -14,6 +14,11 @@ export class SpotifyService {
   async getNewReleases(){
     const obs = await this.getQueryConsult('browse/new-releases?limit=20');
     return obs.pipe( map( data => data['albums'].items));
+  }
+
+  async getTopGlobal(){
+    const obs = await this.getQueryConsult('playlists/37i9dQZEVXbMDoHDwVN2tF');
+    return obs.pipe( map( data => data['tracks'].items));
   }
 
   async getArtists(search: string){

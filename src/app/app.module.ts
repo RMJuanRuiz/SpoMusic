@@ -18,6 +18,7 @@ import { ROUTES } from "./app.routes";
 // Pipes
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { DomseguroPipe } from "./pipes/domseguro.pipe";
+import { TopGlobalComponent } from './components/top-global/top-global.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DomseguroPipe } from "./pipes/domseguro.pipe";
     CardComponent,
     LoadingComponent,
     NoimagePipe,
-    DomseguroPipe
+    DomseguroPipe,
+    TopGlobalComponent
   ],
   imports: [
     BrowserModule,
